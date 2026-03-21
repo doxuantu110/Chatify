@@ -17,14 +17,17 @@ public class UpdateUserRequest {
     }
 
     public void setFull_name(String full_name) {
+
         this.full_name = full_name;
     }
 
     public String getProfile_picture() {
+
         return profile_picture;
     }
 
     public void setProfile_picture(String profile_picture) {
+
         this.profile_picture = profile_picture;
     }
 }
