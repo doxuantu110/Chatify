@@ -1,69 +1,48 @@
 package com.tudo.chatify.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column(name = "full_name")
     private String full_name;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "profile_image", length = 2000)
     private String profile_picture;
+
+    @JsonIgnore
     private String password;
 
-    public User(){};
+    @JsonIgnore
+    @ManyToMany(mappedBy = "admins")
+    private Set<Chat> groups = new HashSet<>();
 
-    public User(String full_name, Integer id, String email, String profile_picture, String password) {
-        super();
-        this.full_name = full_name;
-        this.id = id;
-        this.email = email;
-        this.profile_picture = profile_picture;
-        this.password = password;
-    }
+    @JsonIgnore
+    @ManyToMany(mappedBy = "users")
+    private Set<Chat> chats = new HashSet<>();
 
-    public Integer getId() {
-        return id;
-    }
+    @JsonIgnore
+    @OneToMany
+    private List<Message> messages = new ArrayList<>();
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getFull_name() {
-        return full_name;
-    }
-
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getProfile_picture() {
-        return profile_picture;
-    }
-
-    public void setProfile_picture(String profile_picture) {
-        this.profile_picture = profile_picture;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    
 }
