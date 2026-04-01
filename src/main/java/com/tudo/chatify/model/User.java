@@ -29,7 +29,6 @@ public class User {
     @Column(name = "profile_image", length = 2000)
     private String profile_picture;
 
-    @JsonIgnore
     private String password;
 
     @JsonIgnore

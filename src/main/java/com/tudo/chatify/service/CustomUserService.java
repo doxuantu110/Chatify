@@ -15,11 +15,10 @@ import java.util.List;
 
 @Service
 public class CustomUserService implements UserDetailsService {
+
+    @Autowired
     private UserRepository userRepository;
 
-    public CustomUserService(UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = null;
@@ -35,4 +34,5 @@ public class CustomUserService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
     }
+
 }
